@@ -43,9 +43,9 @@
 <br>  
 
 
-**Wiki탭에 참조링크 or 자료를 공유**  
+## **Wiki탭에 참조링크 or 자료를 공유**  
 
-Wiki에 정리할 예정임  
+Wiki에 정리할 예정임  [Wiki](https://github.com/koojaekwan/dacon_corona_proj/wiki/%EC%B0%B8%EC%A1%B0%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A7%81%ED%81%AC%EB%93%A4-%EC%A0%95%EB%A6%AC)  
 
 
 <br>  
