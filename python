@@ -1,44 +1,19 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
-case = pd.read_csv("C:/wozky/Dacon/case.csv")
-print(case.head())
-print(case)
-print(case.shape)
-case_array = np.array(case)
-print(b)
-print(b.shape)
-
-print(case.columns)
-case.columns = ['분류번호', '시도', '군구', '집단감염여부', '감염장소', '확진자 수', '위도', '경도']
-print(case.head())
-print(case_array[:,1])
-latitude = case_array[:,6]
-#latitude = latitude.astype(np.float)
-#longitude = int(case_array[:,7])
-#plt.scatter(latitude, longitude)
-#print(latitude[0])
-#a = latitude[0:2].astype(np.float)
-#print(a)
-#print(longitude)
-#print(location)
-
-#for i in range(case_array.shape[1]):
-table = case_array[:, 4:5]
-location = case_array[:,4]
-num_confirmed = case_array[:,5]
-print(num_confirmed)
-plt.bar(location, num_confirmed, label = 'Bars1', color = 'r')
-num_confirmed_sorted = num_confirmed.astype(np.int)
-num_confirmed_sorted.sort()
-num_confirmed_sorted = num_confirmed_sorted[::-1]
-largest = num_confirmed_sorted[0]
-sec_largest = num_confirmed_sorted[1]
-thrd_largest = num_confirmed_sorted[2]
-location_largest_index = np.where(num_confirmed == largest)
-location_sec_index = np.where(num_confirmed == sec_largest)
-location_thrd_index = np.where(num_confirmed == thrd_largest)
-x = [location[location_largest_index], location[location_sec_index], location[location_thrd_index]]
-y = [largest, sec_largest, thrd_largest]
-plt.bar(x, y, label = 'Bars2', color = 'r')
+case_df = pd.read_csv('C:/wozky/Dacon/case.csv')
+case_df.head()
+case_df.columns = ['식별번호', '시도', '구군', '집단감염여부', '집단감염장소', '확진자수', '위도', '경도']
+case_df.set_index('식별번호', inplace = True)
+case_df.head()
+case_df.info()
+case_df.isnull().sum()
+case_df['집단감염장소'].value_counts()
+case_df_sortedbylocation = pd.DataFrame(case_df.groupby(['집단감염장소'])['확진자수'].max())
+case_df_sortedbylocation = case_df_sortedbylocation.sort_values(by=['확진자수'], ascending=False).reset_index()
+case_df_sortedbylocation.head()
+case_df_sortedbylocation2 = pd.DataFrame(case_df.groupby(['집단감염장소'])['확진자수'].max())
+case_df_sortedbylocation2 = case_df_sortedbylocation2.sort_values(by=['확진자수'], ascending=True).reset_index()
+plt.rcdefaults()
+fig, ax = plt.subplots()
+ax.barh(list(case_df_sortedbylocation2['집단감염장소']), list(case_df_sortedbylocation2['확진자수']), align='center')
